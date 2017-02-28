@@ -1,0 +1,63 @@
+.container
+    .row
+        .page-header
+            .row
+                h1= title
+                .col-md-7
+                    small 重度科幻迷
+                .col-md-5
+                    form(method="get",action="/result")
+                        .form-group
+                            label.col-sm-2.control-label(for="search") 搜索:
+                            .col-md-10
+                                input#search.form-control(type="text",name="keyword")
+.navbar.navbar-default.navbar-fixed-bottom
+    .container
+        .navbar-header
+            a.navbar-brand(href="/") 重度科幻迷
+        if user
+            p.navbar-text.navbar-left
+                a.navbar-link(href="/admin/movie/list",target="_blank") 电影列表&nbsp;
+                a.navbar-link(href="/user/list",target="_blank") 用户列表&nbsp;
+                a.navbar-link(href="/admin/movie/category/list",target="_blank") 电影分类列表&nbsp;
+                a.navbar-link(href="/admin/movie",target="blank") 新增电影&nbsp;
+                a.navbar-link(href="/admin/movie/category",target="blank") 新增分类
+            p.navbar-text.navbar-right
+                span 欢迎您，#{user.name}
+                span &nbsp;|&nbsp;
+                a.navbar-link(href="/user/logout") 登出
+        else
+            p.navbar-text.navbar-right
+                a.navbar-link(href="#",data-toggle="modal",data-target="#signupModal") 注册
+                span &nbsp;|&nbsp;
+                a.navbar-link(href="#",data-toggle="modal",data-target="#signinModal") 登录
+#signupModal.modal.fade
+    .modal-dialog
+        .modal-content
+            form(method="post",action="/user/sign")
+                .modal-header 注册
+                .modal-body
+                    .form-group
+                        lable(for="signName") 用户名
+                        input#signName.form-control(name="user[name]",type="text")
+                    .form-group
+                        lable(for="signPassword") 密码
+                        input#signPassword.form-control(name="user[password]",type="password")
+                .modal-footer
+                    button.btn.btn-default(type="button",data-dismiss="modal") 关闭
+                    button.btn.btn-success(type="submit") 提交
+#signinModal.modal.fade
+    .modal-dialog
+        .modal-content
+            form(method="post",action="/user/login")
+                .modal-header 登录
+                .modal-body
+                    .form-group
+                        lable(for="loginName") 用户名
+                        input#signinName.form-control(name="user[name]",type="text")
+                    .form-group
+                        lable(for="loginPassword") 密码
+                        input#signinPassword.form-control(name="user[password]",type="password")
+                .modal-footer
+                    button.btn.btn-default(type="button",data-dismiss="modal") 关闭
+                    button.btn.btn-success(type="submit") 提交

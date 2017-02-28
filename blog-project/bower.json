@@ -1,0 +1,25 @@
+{
+  "name": "movieweb",
+  "description": "0.0.1",
+  "main": "app.js",
+  "authors": [
+    "skylarblue <qhotian@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "webmovie"
+  ],
+  "homepage": "https://github.com/skylarblue/MovieWeb",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}

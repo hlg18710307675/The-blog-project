@@ -1,0 +1,14 @@
+extends ../layout
+block content
+    .container
+        .row
+            .col-md-5
+                form(method="post",action="/user/sign")
+                    .form-group
+                        label(for="signName") 用户名
+                        input#signName.form-control(name="user[name]",type="text")
+                    .form-group
+                        label(for="signPassword") 密码
+                        input#signPassword.form-control(name="user[password]",type="password")
+                    .form-group
+                        button.btn.btn-success(type="submit") 登录

@@ -1,0 +1,62 @@
+extends ../layout
+
+block content
+    .container
+        .row
+            .col-md-7
+                embed(src='#{movie.flash}' allowFullScreen='true' quality='high' width='480' height='400' align='middle' allowScriptAccess='always' type='application/x-shockwave-flash')
+                .panel
+                    .panel-heading
+                        h1 评论区
+                    .panel-body
+                        ul.media-list
+                            each item in comments
+                                li.media
+                                    .media-left
+                                        a.reply(href="#comment",data-cid="#{item._id}",data-tid="#{item.from._id}")
+                                            img.media-object(src="",alt="头像")
+                                    .media-body
+                                        h4.media-heading #{item.from.name}
+                                            span.pull-right #{moment(item.meta.updateAt).format("DD/MM/YYYY")}
+                                        p #{item.content}
+                                        if item.reply.length>0
+                                            each reply in item.reply
+                                                .media
+                                                    .pull-left
+                                                        a.reply(href="#comment",data-cid="#{item._id}",data-tid="#{reply.from._id}")
+                                                            img.media-object(src="",alt="头像")
+                                                    .media-body
+                                                        h4.media-heading
+                                                            |#{reply.from.name}
+                                                            small.text-info &nbsp;回复&nbsp;
+                                                            |#{reply.to.name}
+                                                        p #{reply.content}
+
+                    .panel-footer
+                        form(method="post",action="/user/comment")
+                            .form-group
+                                textarea(name="comment[content]" ,id="comment")
+                            if user
+                                .form-group.hidden-input
+                                    input(type="hidden",name="comment[movie]",value="#{movie._id}")
+                                    input(type="hidden",name="comment[from]",value="#{user._id}")
+                                .form-group.text-right
+                                    button.btn.btn-success(type="submit") 提交
+                            else
+                                .form-group.text-right
+                                    a.btn.btn-success.navbar-link(href="#",data-toggle="modal",data-target="#signinModal") 登录后评论
+                    script(src="/js/reply.js")
+            .col-md-5
+                dl.dl-horizontal
+                    dt 电影名字
+                    dd #{movie.title}
+                    dt 导演
+                    dd #{movie.doctor}
+                    dt 国家
+                    dd #{movie.country}
+                    dt 语言
+                    dd #{movie.language}
+                    dt 上映年份
+                    dd #{movie.year}
+                    dt 简介
+                    dd #{movie.summary}
